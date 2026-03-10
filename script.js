@@ -1,79 +1,84 @@
-/* smooth scroll */
+/* SMOOTH NAVBAR SCROLL WITH OFFSET */
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+document.querySelectorAll('.nav-links a').forEach(link => {
 
-anchor.addEventListener("click",function(e){
+link.addEventListener('click', function(e){
 
 e.preventDefault()
 
-document.querySelector(this.getAttribute("href"))
-.scrollIntoView({behavior:"smooth"})
+const target = document.querySelector(this.getAttribute('href'))
 
+window.scrollTo({
+top: target.offsetTop - 70,
+behavior: "smooth"
 })
 
 })
 
+})
 
-/* typing animation */
 
-const words = ["Programmer","Web Developer","Cloud Practitioner"]
+/* TYPING ANIMATION */
 
-let i = 0
-let j = 0
-let current = ""
+const texts = ["Programmer","Web Developer","Cloud Practitioner"]
+
+let textIndex = 0
+let charIndex = 0
 let isDeleting = false
 
-function type(){
+function typeEffect(){
 
-current = words[i]
+const currentText = texts[textIndex]
 
 if(isDeleting){
 
-j--
+charIndex--
 
 }else{
 
-j++
+charIndex++
 
 }
 
-document.querySelector(".typing").textContent = current.substring(0,j)
+document.querySelector(".typing").textContent =
+currentText.substring(0,charIndex)
 
-if(!isDeleting && j === current.length){
+if(!isDeleting && charIndex === currentText.length){
 
 isDeleting = true
-setTimeout(type,1200)
+setTimeout(typeEffect,1200)
 return
 
 }
 
-if(isDeleting && j === 0){
+if(isDeleting && charIndex === 0){
 
 isDeleting = false
-i++
+textIndex++
 
-if(i === words.length){
-i = 0
+if(textIndex === texts.length){
+textIndex = 0
 }
 
 }
 
-setTimeout(type,isDeleting ? 50 : 120)
+setTimeout(typeEffect,isDeleting ? 60 : 120)
 
 }
 
-type()
+typeEffect()
 
 
-/* scroll animation */
 
-const observer = new IntersectionObserver(entries=>{
+/* SCROLL REVEAL ANIMATION */
 
-entries.forEach(entry=>{
+const observer = new IntersectionObserver(entries => {
+
+entries.forEach(entry => {
 
 if(entry.isIntersecting){
 
-entry.target.style.opacity = 1
+entry.target.style.opacity = "1"
 entry.target.style.transform = "translateY(0)"
 
 }
@@ -82,12 +87,12 @@ entry.target.style.transform = "translateY(0)"
 
 })
 
-document.querySelectorAll(".section").forEach(sec=>{
+document.querySelectorAll("section").forEach(section => {
 
-sec.style.opacity = 0
-sec.style.transform = "translateY(40px)"
-sec.style.transition = "1s"
+section.style.opacity = "0"
+section.style.transform = "translateY(40px)"
+section.style.transition = "1s"
 
-observer.observe(sec)
+observer.observe(section)
 
 })
