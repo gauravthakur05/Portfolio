@@ -4,7 +4,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 anchor.addEventListener("click",function(e){
 
-e.preventDefault();
+e.preventDefault()
 
 document.querySelector(this.getAttribute("href"))
 .scrollIntoView({behavior:"smooth"})
@@ -16,59 +16,78 @@ document.querySelector(this.getAttribute("href"))
 
 /* typing animation */
 
-const text = ["Programmer","Web Developer","Cloud Practitioner"];
+const words = ["Programmer","Web Developer","Cloud Practitioner"]
 
-let count = 0;
-let index = 0;
-let currentText = "";
-let letter = "";
+let i = 0
+let j = 0
+let current = ""
+let isDeleting = false
 
 function type(){
 
-if(count === text.length){
-count = 0;
-}
+current = words[i]
 
-currentText = text[count];
-letter = currentText.slice(0,++index);
+if(isDeleting){
 
-document.querySelector(".typing").textContent = letter;
+j--
 
-if(letter.length === currentText.length){
-count++;
-index = 0;
-}
+}else{
 
-setTimeout(type,120)
+j++
 
 }
 
-type();
+document.querySelector(".typing").textContent = current.substring(0,j)
+
+if(!isDeleting && j === current.length){
+
+isDeleting = true
+setTimeout(type,1200)
+return
+
+}
+
+if(isDeleting && j === 0){
+
+isDeleting = false
+i++
+
+if(i === words.length){
+i = 0
+}
+
+}
+
+setTimeout(type,isDeleting ? 50 : 120)
+
+}
+
+type()
 
 
+/* scroll animation */
 
-/* scroll reveal */
-
-const observer = new IntersectionObserver(entries =>{
+const observer = new IntersectionObserver(entries=>{
 
 entries.forEach(entry=>{
 
 if(entry.isIntersecting){
+
 entry.target.style.opacity = 1
 entry.target.style.transform = "translateY(0)"
+
 }
 
 })
 
 })
 
+document.querySelectorAll(".section").forEach(sec=>{
 
-document.querySelectorAll("section").forEach(section=>{
+sec.style.opacity = 0
+sec.style.transform = "translateY(40px)"
+sec.style.transition = "1s"
 
-section.style.opacity = 0
-section.style.transform = "translateY(40px)"
-section.style.transition = "all 1s"
-
-observer.observe(section)
+observer.observe(sec)
 
 })
