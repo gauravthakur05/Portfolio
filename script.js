@@ -1,5 +1,3 @@
-/* NAVBAR SMOOTH SCROLL */
-
 document.querySelectorAll('.nav-links a').forEach(link => {
 
 link.addEventListener('click', function(e){
@@ -9,29 +7,31 @@ e.preventDefault()
 const target = document.querySelector(this.getAttribute('href'))
 
 window.scrollTo({
-top: target.offsetTop - 90,
+
+top: target.offsetTop - 80,
 behavior: "smooth"
-})
 
 })
 
 })
 
+})
 
-/* TYPING ANIMATION */
 
-const words = ["Programmer","Web Developer","Cloud Practitioner"]
+/* typing animation */
+
+const text = ["Programmer","Web Developer","Cloud Practitioner"]
 
 let i = 0
 let j = 0
 let current = ""
-let isDeleting = false
+let deleting = false
 
 function type(){
 
-current = words[i]
+current = text[i]
 
-if(isDeleting){
+if(deleting){
 j--
 }else{
 j++
@@ -39,26 +39,26 @@ j++
 
 document.querySelector(".typing").textContent = current.substring(0,j)
 
-if(!isDeleting && j === current.length){
+if(!deleting && j === current.length){
 
-isDeleting = true
-setTimeout(type,1200)
+deleting = true
+setTimeout(type,1000)
 return
 
 }
 
-if(isDeleting && j === 0){
+if(deleting && j === 0){
 
-isDeleting = false
+deleting = false
 i++
 
-if(i === words.length){
+if(i === text.length){
 i = 0
 }
 
 }
 
-setTimeout(type,isDeleting ? 60 : 120)
+setTimeout(type,deleting ? 50 : 120)
 
 }
 
