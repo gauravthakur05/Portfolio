@@ -1,4 +1,4 @@
-/* SMOOTH NAVBAR SCROLL WITH OFFSET */
+/* NAVBAR SMOOTH SCROLL */
 
 document.querySelectorAll('.nav-links a').forEach(link => {
 
@@ -9,7 +9,7 @@ e.preventDefault()
 const target = document.querySelector(this.getAttribute('href'))
 
 window.scrollTo({
-top: target.offsetTop - 70,
+top: target.offsetTop - 90,
 behavior: "smooth"
 })
 
@@ -20,79 +20,46 @@ behavior: "smooth"
 
 /* TYPING ANIMATION */
 
-const texts = ["Programmer","Web Developer","Cloud Practitioner"]
+const words = ["Programmer","Web Developer","Cloud Practitioner"]
 
-let textIndex = 0
-let charIndex = 0
+let i = 0
+let j = 0
+let current = ""
 let isDeleting = false
 
-function typeEffect(){
+function type(){
 
-const currentText = texts[textIndex]
+current = words[i]
 
 if(isDeleting){
-
-charIndex--
-
+j--
 }else{
-
-charIndex++
-
+j++
 }
 
-document.querySelector(".typing").textContent =
-currentText.substring(0,charIndex)
+document.querySelector(".typing").textContent = current.substring(0,j)
 
-if(!isDeleting && charIndex === currentText.length){
+if(!isDeleting && j === current.length){
 
 isDeleting = true
-setTimeout(typeEffect,1200)
+setTimeout(type,1200)
 return
 
 }
 
-if(isDeleting && charIndex === 0){
+if(isDeleting && j === 0){
 
 isDeleting = false
-textIndex++
+i++
 
-if(textIndex === texts.length){
-textIndex = 0
+if(i === words.length){
+i = 0
 }
 
 }
 
-setTimeout(typeEffect,isDeleting ? 60 : 120)
+setTimeout(type,isDeleting ? 60 : 120)
 
 }
 
-typeEffect()
-
-
-
-/* SCROLL REVEAL ANIMATION */
-
-const observer = new IntersectionObserver(entries => {
-
-entries.forEach(entry => {
-
-if(entry.isIntersecting){
-
-entry.target.style.opacity = "1"
-entry.target.style.transform = "translateY(0)"
-
-}
-
-})
-
-})
-
-document.querySelectorAll("section").forEach(section => {
-
-section.style.opacity = "0"
-section.style.transform = "translateY(40px)"
-section.style.transition = "1s"
-
-observer.observe(section)
-
-})
+type()
