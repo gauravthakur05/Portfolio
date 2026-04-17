@@ -112,7 +112,7 @@ font-size:18px;
 }
 
 
-/* RESUME BUTTON (SAME STYLE + DIFFERENT FONT) */
+/* RESUME BUTTON (MATCH + HIGHLIGHT + DIFFERENT FONT) */
 
 .resume-btn {
   display: inline-block;
@@ -123,20 +123,22 @@ font-size:18px;
   text-decoration: none;
   margin: 10px;
 
-  /* SAME STYLE AS YOUR .btn */
-  background: #4cc9f0;
-  color: black;
+  background: transparent;
+  border: 2px solid #4cc9f0;
+  color: #4cc9f0;
 
-  /* DIFFERENT FONT */
   font-family: 'Orbitron', sans-serif;
   letter-spacing: 1px;
 
+  box-shadow: 0 0 10px rgba(76, 201, 240, 0.4);
   transition: 0.3s;
 }
 
 .resume-btn:hover {
-  background: #38bdf8;
+  background: #4cc9f0;
+  color: black;
   transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(76, 201, 240, 0.9);
 }
 
 /* SECTION */
